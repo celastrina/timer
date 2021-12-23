@@ -27,9 +27,7 @@
  * @copyright Robert R Murrell
  * @license MIT
  */
-
 "use strict";
-
 class MockAzureFunctionContext {
     constructor() {
         this.doneInvoked = false;

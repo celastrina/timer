@@ -21,12 +21,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-const {CelastrinaError, CelastrinaValidationError, Configuration, CelastrinaEvent} = require("@celastrina/core");
+const {Configuration, Context} = require("@celastrina/core");
+const {TickEvent} = require("../Timer")
 const {MockAzureFunctionContext} = require("./AzureFunctionContextMock");
-const {MockContext} = require("./ContextTest");
-const assert = require("assert");
 const moment = require("moment");
-const {TickEvent} = require("../Timer");
+const assert = require("assert");
+
+class MockContext extends Context {
+	constructor(config) {
+		super(config);
+	}
+	setMonitorMode() {this._monitor = true;}
+}
 
 class MockTickContext extends MockContext {
 	constructor(config) {
