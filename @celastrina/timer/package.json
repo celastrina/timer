@@ -1,0 +1,35 @@
+{
+  "name": "@celastrina/timer",
+  "version": "4.2.7",
+  "description": "Timer Function Package for Celastrina",
+  "main": "Timer.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/celastrina/timer.git",
+    "directory": "@celastrina/timer"
+  },
+  "keywords": [
+    "Azure",
+    "Function",
+    "Celatrina",
+    "Timer"
+  ],
+  "author": "Robert R Murrell",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/celastrina/timer/issues"
+  },
+  "homepage": "https://github.com/celastrina/timer#readme",
+  "dependencies": {
+    "@celastrina/core": "^4.12.34",
+    "moment": "^2.29.1"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^1.20.0",
+    "mocha": "^9.0.1",
+    "sinon": "^11.1.1"
+  }
+}
