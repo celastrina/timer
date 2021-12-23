@@ -21,12 +21,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-const {CelastrinaError, CelastrinaValidationError, Configuration, CelastrinaEvent, AddOnManager} = require("@celastrina/core");
+const {AddOnManager} = require("@celastrina/core");
 const {MockAzureFunctionContext} = require("./AzureFunctionContextMock");
-const {MockContext} = require("./ContextTest");
 const assert = require("assert");
-const moment = require("moment");
-const {TickEvent, TimerFunction, TimerAddOn, TimerConfigParser} = require("../Timer");
+const {TimerAddOn, TimerConfigParser} = require("../Timer");
 
 describe("TimerConfigParser", () => {
 	describe("#parse(_Object)", () => {

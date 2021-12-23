@@ -21,12 +21,11 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-const {CelastrinaError, CelastrinaValidationError, Configuration, CelastrinaEvent} = require("@celastrina/core");
+const {Configuration} = require("@celastrina/core");
 const {MockAzureFunctionContext} = require("./AzureFunctionContextMock");
-const {MockContext} = require("./ContextTest");
 const assert = require("assert");
 const moment = require("moment");
-const {TickEvent, TimerFunction, TimerAddOn} = require("../Timer");
+const {TimerFunction, TimerAddOn} = require("../Timer");
 
 class MockTimerFunction extends TimerFunction {
 	constructor(config, reject = false) {
@@ -133,7 +132,6 @@ describe("TimerFunction", () => {
 		});
 	});
 });
-
 
 module.exports = {
 	MockTimerFunction: MockTimerFunction
