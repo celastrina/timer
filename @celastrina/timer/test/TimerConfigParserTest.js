@@ -37,7 +37,7 @@ describe("TimerConfigParser", () => {
 			_addOnManager.add(_addon);
 			_parser.initialize(_azcontext, _config, _addOnManager);
 			let _Object = {rejectOnPastDue: true, abortOnReject: true};
-			_Object["_content"] = {type: "application/vnd.celastrinajs.config+json;Timer"};
+			_Object["$object"] = {contentType: "application/vnd.celastrinajs.config+json;Timer"};
 			await _parser.parse(_Object);
 			assert.strictEqual(_addon.abortOnReject, true, "Expected true.");
 			assert.strictEqual(_addon.rejectOnPastDue, true, "Expected true.");

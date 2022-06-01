@@ -35,7 +35,8 @@ const {CelastrinaError, CelastrinaValidationError, LOG_LEVEL, Configuration, Con
  * @author Robert R Murrell
  */
 class TickEvent extends CelastrinaEvent {
-	/**@return{string}*/static get celastrinaType() {return "celastrinajs.timer.TickEvent";}
+	/**@return{Object}*/static get $object() {return {schema: "https://celastrinajs/schema/v1.0.0/timer/TickEvent#",
+		                                              type: "celastrinajs.timer.TickEvent"};}
 	/**
 	 * @param {Context} context
 	 * @param {*} [source=null]
@@ -59,7 +60,8 @@ class TickEvent extends CelastrinaEvent {
  * @abstract
  */
 class TimerFunction extends BaseFunction {
-	/**@return{string}*/static get celastrinaType() {return "celastrinajs.timer.TimerFunction";}
+	/**@return{Object}*/static get $object() {return {schema: "https://celastrinajs/schema/v1.0.0/timer/TimerFunction#",
+		                                              type: "celastrinajs.timer.TimerFunction"};}
 	/**@param{Configuration}configuration*/
 	constructor(configuration) {
 		super(configuration);
@@ -142,7 +144,8 @@ class TimerFunction extends BaseFunction {
  * @author Robert R Murrell
  */
 class TimerConfigParser extends ConfigParser {
-	/**@return{string}*/static get celastrinaType() {return "celastrinajs.timer.TimerConfigParser";}
+	/**@return{Object}*/static get $object() {return {schema: "https://celastrinajs/schema/v1.0.0/timer/TimerConfigParser#",
+		                                              type: "celastrinajs.timer.TimerConfigParser"};}
 	constructor(link = null, version = "1.0.0") {
 		super("Timer", link, version);
 	}
@@ -163,8 +166,9 @@ class TimerConfigParser extends ConfigParser {
  * @author Robert R Murrell
  */
 class TimerAddOn extends AddOn {
-	/**@return{string}*/static get celastrinaType() {return "celastrinajs.timer.TimerAddOn";}
-	/**@return{string}*/static get addOnName() {return "celastrinajs.timer.addon.timer";}
+	/**@return{Object}*/static get $object() {return {schema: "https://celastrinajs/schema/v1.0.0/timer/TimerAddOn#",
+		                                              type: "celastrinajs.timer.TimerAddOn",
+		                                              addOn: "celastrinajs.timer.addon.timer"};}
 	/**
 	 * @param {boolean} rejectOnPastDue
 	 * @param {boolean} abortOnReject
