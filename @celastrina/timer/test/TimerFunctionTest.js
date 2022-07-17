@@ -78,6 +78,8 @@ describe("TimerFunction", () => {
 			let _function = new MockTimerFunction(_config);
 			await _function.execute(_azcontext);
 			assert.strictEqual(_function.onTickInvoked, true, "Expected true.");
+			assert.strictEqual(_function.onRejectInvoked, false, "Expected false.");
+			assert.strictEqual(_function.onAbortInvoked, false, "Expected false.");
 		});
 		it("should not reject on past due", async () => {
 			let _azcontext = new MockAzureFunctionContext();
@@ -125,7 +127,7 @@ describe("TimerFunction", () => {
 			_addon.abortOnReject = true;
 			_config.addOn(_addon);
 			let _function = new MockTimerFunction(_config);
-			await _function.execute(_azcontext);
+			await assert.rejects(() => {return _function.execute(_azcontext)});
 			assert.strictEqual(_function.onTickInvoked, false, "Expected false.");
 			assert.strictEqual(_function.onRejectInvoked, true, "Expected true.");
 			assert.strictEqual(_function.onAbortInvoked, true, "Expected true.");

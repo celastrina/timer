@@ -1,13 +1,9 @@
-# celastrina
-Celastrina is a JavaScript framework for simplifying server-less compute in Microsoft Azure Functions. Celastrina
-attempts to simplify the configuration and connectivity of common PaaS services in the Azure Platform with a special
-emphasis on security.
+# @celastrina/timer
 
-Celastrina is flexible enough to support small open-source efforts and can easily scale up to large enterprise
-deployments. Celastrina is committed to maintaining compatibility with JavaScript libraries released by Microsoft and
-will continue to adapt and grow with the Microsoft Azure eco-system.
+Celastrina Add-On for Time Triggers in Azure Functions.
 
 # Quick Start
+
 Creating your first Timer Function:
 
 ```
@@ -20,18 +16,21 @@ class MyFirstFunction extends TimerFunction {
     } 
 
     async onTick(event) {
-        // Successfule tick event!
+        // Successful tick event!
 		event.context.log("Welcome!", LOG_LEVEL.INFO);
-		//event.reject(CelastrinaError.newError("Something Happened!")); // to reject the tick.
+		// To reject the event
+		//event.reject(CelastrinaError.newError("Something Happened!"));
+		// To abort the event, set TimerAddOn.abortOnReject=true, or invoke event.abort();
 	}
 	
 	async onReject(event) {
 	    // Rejected tick event.
-		this.onRejectInvoked = true;
+	    // Rejections do not throw exceptions unless TimerAddOn.abortOnReject=true.
 	}
 	
 	async onAbort(event) {
-	    // Aborted event. Typically when an excepin happens or TimerAddOn.abortOnReject = true.
+	    // Aborted event. Typically when an exception happens or TimerAddOn.abortOnReject=true.
+	    // TimerFunction will throw the exception after this method is called.
 	}
 }
  
@@ -41,7 +40,8 @@ _config.addOn(_timerconfig);
 module.exports = new MyFirstFunction (_config);
 ```
 
-You will need to make a few updates to your function.json. You’ll need to add an “entryPoint” attribute with the value “execute” and ensure your in binding is named “tick”.
+You will need to make a few updates to your function.json. You’ll need to add an “entryPoint” attribute with the value 
+“execute” and ensure your binding is named “tick”.
 
 ```
 {
@@ -57,4 +57,4 @@ You will need to make a few updates to your function.json. You’ll need to add 
 }
 ```
 
-Please visit [celastrinajs.com](https://www.celastrinajs.com) for further examples and documentation.
+For more information please visit [@celastrina/timer](https://github.com/celastrina/timer/wiki) wiki on Github.

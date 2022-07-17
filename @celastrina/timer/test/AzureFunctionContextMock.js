@@ -27,11 +27,11 @@
  * @copyright Robert R Murrell
  * @license MIT
  */
+
 "use strict";
+
 class MockAzureFunctionContext {
     constructor() {
-        this.doneInvoked = false;
-        this.donecontents = null;
         this.bindings     = {
                              tick: {
                                  schedule: {adjustForDST: true},
@@ -42,34 +42,13 @@ class MockAzureFunctionContext {
                                  },
                                  isPastDue: false
                              },
-                             message: {},
-                             req: {
-                                originalUrl: "http://original-azure-function-url",
-                                method: "GET",
-                                query: {},
-                                headers: {
-                                    "authorization": "Bearer mock_bearer_token",
-                                    "connection": "Keep-Alive",
-                                    "accept": "application/json",
-                                    "host": "original-azure-function-url",
-                                    "origin": "https://functions.azure.com",
-                                },
-                                params: {},
-                                body: {},
-                                rawBody: {}
-                             },
-                             res: {
-                                 headers: {
-                                     "Content-Type": "application/json"
-                                 },
-                                 body: {},
-                                 rawBody: {},
-                                 status: 500,
-                                 cookies: null
-                             },
                              mockBindingTwo: {key: "mock_key", value: "mock_value"}};
-        this.bindingData  = {invocationId: "mock_invocation_id"};
-        this.invocationId = this.bindingData.invocationId;
+        this.bindingData  = {};
+        this.executionContext = {
+            invocationId: "mock_invocation_id",
+            functionName: "mock_function",
+            functionDirectory: "/var/sites/wwwroot/"
+        }
         this.traceContext = {traceparent: "mock_trace_id"};
         this.log = {
             message: null,
