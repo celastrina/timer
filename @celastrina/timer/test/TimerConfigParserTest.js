@@ -24,23 +24,25 @@
 const {AddOnManager} = require("@celastrina/core");
 const {MockAzureFunctionContext} = require("./AzureFunctionContextMock");
 const assert = require("assert");
-const {TimerAddOn, TimerConfigParser} = require("../Timer");
+const {TimerAddOn, TimerConfigLoader} = require("../Timer");
 
 describe("TimerConfigParser", () => {
 	describe("#parse(_Object)", () => {
 		it("should parse timer properties.", async () => {
-			let _parser = new TimerConfigParser();
-			let _azcontext = new MockAzureFunctionContext();
+			let _parser = new TimerConfigLoader();
 			let _config = {};
-			let _addon = new TimerAddOn();
-			let _addOnManager = new AddOnManager();
-			_addOnManager.add(_addon);
-			_parser.initialize(_azcontext, _config, _addOnManager);
-			let _Object = {rejectOnPastDue: true, abortOnReject: true};
-			_Object["$object"] = {contentType: "application/vnd.celastrinajs.config+json;Timer"};
-			await _parser.parse(_Object);
-			assert.strictEqual(_addon.abortOnReject, true, "Expected true.");
-			assert.strictEqual(_addon.rejectOnPastDue, true, "Expected true.");
+			let _Object = {
+				$object: {
+					contentType: "application/vnd.celastrinajs.config+json;Timer"
+				},
+				rejectOnPastDue: true,
+				abortOnReject: true
+			};
+			await _parser.load(_Object, _config);
+			assert.strictEqual(_config.hasOwnProperty(TimerAddOn.CONFIG_TIMER), true, "Expected CONFIG_TIMER set.");
+			let _configtimer = _config[TimerAddOn.CONFIG_TIMER];
+			assert.strictEqual(_configtimer.abortOnReject, true, "Expected true.");
+			assert.strictEqual(_configtimer.rejectOnPastDue, true, "Expected true.");
 		});
 	});
 });
