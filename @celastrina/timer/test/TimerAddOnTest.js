@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-const {Configuration} = require("@celastrina/core");
+const {Configuration, AddOnEventHandler, AddOnEvent} = require("@celastrina/core");
 const {MockAzureFunctionContext} = require("./AzureFunctionContextMock");
 const assert = require("assert");
 const {TimerAddOn} = require("../Timer");
@@ -69,14 +69,30 @@ describe("TimerAddOn", () => {
 			assert.strictEqual(_addon.rejectOnPastDue, true, "Expected true.");
 		});
 	});
-	describe("#initialize(azcontext, config)", () => {
+	describe("#install(_azcontext, _config, _handler)", () => {
 		describe("Optimistic AuthZ", () => {
 			it("should set optimistic auth to true", async () => {
-				let _axcontext = new MockAzureFunctionContext();
+				let _azcontext = new MockAzureFunctionContext();
 				let _config = {};
+				let _handler = new AddOnEventHandler();
 				let _addon = new TimerAddOn();
-				await _addon.initialize(_axcontext, _config);
+
+				await _addon.install(_azcontext, _config, _handler);
 				assert.strictEqual(_config[Configuration.CONFIG_AUTHORIATION_OPTIMISTIC], true, "Expected true.");
+			});
+		});
+		describe("Life-cycle listeners", () => {
+			it("Should register for process listener.", async () => {
+				let _azcontext = new MockAzureFunctionContext();
+				let _config = {};
+				let _handler = new AddOnEventHandler();
+				let _addon = new TimerAddOn();
+
+				await _addon.install(_azcontext, _config, _handler);
+
+				let _listener = _handler._listeners.get(AddOnEvent.TYPE.BEFORE_PROCESS);
+
+				assert.strictEqual((typeof _listener !== "undefined" || _listener != null), true, "Expected BEFORE_PROCESS listener.");
 			});
 		});
 	});
