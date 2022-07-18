@@ -1,6 +1,6 @@
 {
   "name": "@celastrina/timer",
-  "version": "4.4.13",
+  "version": "4.4.14",
   "description": "Timer Function Package for Celastrina",
   "main": "Timer.js",
   "scripts": {
