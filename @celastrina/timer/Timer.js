@@ -69,9 +69,14 @@ class TickEvent extends CelastrinaEvent {
 		this._aborted = aborted;
 	}
 	/**@return{boolean}*/get isAborted() {return this._aborted;}
-	abort() {
+	/**@param{*}cause*/set cause(cause) {this._cause = CelastrinaError.wrapError(cause);}
+	reject(cause = null) {
+		super.reject(CelastrinaError.wrapError(cause));
+	}
+	abort(cause = null) {
 		this._rejected = true;
 		this._aborted = true;
+		this.cause = cause;
 	}
 }
 /**
